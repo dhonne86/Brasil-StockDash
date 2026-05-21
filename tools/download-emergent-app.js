@@ -8,12 +8,22 @@ const base = "https://vscode-4d619a65-3928-45f8-a405-a337b1af7783.preview.emerge
 
 async function login(page) {
   await page.goto(`${base}/?folder=/app`, { waitUntil: "domcontentloaded", timeout: 60000 });
+  await page.waitForFunction(
+    () => document.querySelector("input[type=password]") || document.querySelector(".monaco-list-row"),
+    null,
+    { timeout: 120000 },
+  );
   if ((await page.locator("input[type=password]").count()) > 0) {
     await page.locator("input[type=password]").fill(password);
     await Promise.all([
       page.waitForLoadState("domcontentloaded", { timeout: 60000 }).catch(() => {}),
       page.locator("input[type=submit]").click(),
     ]);
+    await page.waitForFunction(
+      () => document.querySelector("input[type=password]") || document.querySelector(".monaco-list-row"),
+      null,
+      { timeout: 120000 },
+    );
   }
 }
 
