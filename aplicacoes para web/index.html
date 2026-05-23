@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="pt-BR" class="dark">
+  <head>
+    <script>
+      (function () {
+        try {
+          var theme = localStorage.getItem("novo-projeto-theme") || "system";
+          var prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+          if (theme === "light" || (theme === "system" && prefersLight)) {
+            document.documentElement.classList.remove("dark");
+            document.documentElement.classList.add("light");
+          }
+        } catch (error) {}
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f172a" />
+
+    <title>Novo Projeto</title>
+    <meta name="title" content="Novo Projeto - aplicativo web moderno" />
+    <meta
+      name="description"
+      content="Base limpa para um novo aplicativo web, com tema adaptável, layout responsivo e estrutura pronta para evoluir."
+    />
+    <meta name="author" content="Novo Projeto" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Novo Projeto" />
+    <meta
+      property="og:description"
+      content="Uma base leve e moderna para transformar uma ideia em produto."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script defer src="assets/app.js"></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="brand" href="#" aria-label="Início">
+        <span class="brand-mark">NP</span>
+        <span>Novo Projeto</span>
+      </a>
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="#recursos">Recursos</a>
+        <a href="#fluxo">Fluxo</a>
+        <a href="#contato">Contato</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Alternar tema" data-theme-toggle>
+        <span aria-hidden="true">◐</span>
+      </button>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Base adaptada para um projeto novo</p>
+          <h1>Comece com uma estrutura limpa, rápida e fácil de personalizar.</h1>
+          <p class="hero-text">
+            Este template remove scripts específicos da plataforma original e mantém o que interessa:
+            metadados, tema sem flash, layout responsivo e uma primeira tela pronta para evoluir.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#recursos">Ver recursos</a>
+            <a class="button secondary" href="#contato">Personalizar</a>
+          </div>
+        </div>
+
+        <div class="product-panel" aria-label="Resumo do projeto">
+          <div class="panel-toolbar">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="metric-row">
+            <article>
+              <strong>0</strong>
+              <span>rastreadores</span>
+            </article>
+            <article>
+              <strong>3</strong>
+              <span>arquivos base</span>
+            </article>
+          </div>
+          <div class="status-list">
+            <div>
+              <span class="status-dot ready"></span>
+              <p>HTML sem dependências de bundle externo</p>
+            </div>
+            <div>
+              <span class="status-dot ready"></span>
+              <p>Tema claro/escuro persistente</p>
+            </div>
+            <div>
+              <span class="status-dot pending"></span>
+              <p>Conteúdo pronto para receber sua marca</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="recursos">
+        <div class="section-heading">
+          <p class="eyebrow">Recursos</p>
+          <h2>O essencial já está organizado.</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>Estrutura limpa</h3>
+            <p>Sem GTM, pixels, VWO, Paddle, Google Identity ou arquivos gerados que não existem neste projeto.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Pronto para marca</h3>
+            <p>Textos, cores e componentes foram separados para você trocar identidade e oferta rapidamente.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Responsivo</h3>
+            <p>O layout se ajusta bem em desktop e celular, com navegação simples e conteúdo escaneável.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section split" id="fluxo">
+        <div>
+          <p class="eyebrow">Fluxo sugerido</p>
+          <h2>Troque o genérico pelo seu produto.</h2>
+        </div>
+        <ol class="steps">
+          <li>Renomeie o projeto, descrição e metatags no <code>index.html</code>.</li>
+          <li>Ajuste cores, espaçamentos e componentes em <code>assets/styles.css</code>.</li>
+          <li>Adicione interações e integrações em <code>assets/app.js</code>.</li>
+        </ol>
+      </section>
+
+      <section class="section contact" id="contato">
+        <div>
+          <p class="eyebrow">Próximo passo</p>
+          <h2>Conteúdo, marca e funcionalidades entram aqui.</h2>
+          <p>
+            Esta base já pode ser aberta no navegador. A partir dela, dá para transformar em dashboard,
+            landing page, SaaS, portal interno ou protótipo de produto.
+          </p>
+        </div>
+        <a class="button primary" href="mailto:contato@novoprojeto.com">contato@novoprojeto.com</a>
+      </section>
+    </main>
+  </body>
+</html>

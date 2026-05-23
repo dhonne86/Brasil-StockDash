@@ -1,0 +1,57 @@
+/* App-specific styles - dark trading terminal aesthetic */
+.App {
+    background-color: #050505;
+    color: #fafafa;
+    min-height: 100vh;
+}
+
+/* Data table dense rows */
+.data-row {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    transition: background-color 150ms ease-out;
+}
+.data-row:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+.data-row.active {
+    background-color: rgba(59, 130, 246, 0.08);
+    border-left: 2px solid #3b82f6;
+}
+
+/* Color-coded values */
+.value-up {
+    color: #10b981;
+}
+.value-down {
+    color: #ef4444;
+}
+.value-neutral {
+    color: #a1a1aa;
+}
+
+/* Signal badges */
+.signal-strong-buy {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+}
+.signal-buy {
+    background: rgba(16, 185, 129, 0.08);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.25);
+}
+.signal-strong-sell {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+}
+.signal-sell {
+    background: rgba(239, 68, 68, 0.08);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+}
+.signal-hold {
+    background: rgba(245, 158, 11, 0.08);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.25);
+}
