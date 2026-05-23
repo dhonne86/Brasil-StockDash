@@ -1,0 +1,88 @@
+{
+  "theme": "dark",
+  "archetype": "Archetype 2 (Performance Pro) + Archetype 4 (Swiss High-Contrast)",
+  "typography": {
+    "headings": "Chivo",
+    "body": "IBM Plex Sans",
+    "monospace": "JetBrains Mono",
+    "rules": [
+      "Use JetBrains Mono for all tickers, prices, percentages, financial data, and logs.",
+      "Never use Inter, Syne, or Roboto for headings.",
+      "Headings should use tracking-tight for a dense, professional look.",
+      "Line height must be tight (leading-none) for data blocks and loose (leading-relaxed) for the daily market summary paragraphs."
+    ]
+  },
+  "colors": {
+    "background": "#050505",
+    "card_background": "#0F0F11",
+    "primary_text": "#FAFAFA",
+    "secondary_text": "#A1A1AA",
+    "border": "#27272A",
+    "accent_primary": "#3B82F6",
+    "signal_buy": "#10B981",
+    "signal_sell": "#EF4444",
+    "warning": "#F59E0B",
+    "rules": [
+      "Never use pure black (#000000). Always use tinted void black (#050505) for the application background.",
+      "Use signal_buy (#10B981) and signal_sell (#EF4444) explicitly for up/down market data, chart candles, and PnL metrics.",
+      "Avoid teal (#1B93A4) or purple. Stick to strict technical colors (blue, green, red, amber) suitable for day trading."
+    ]
+  },
+  "layout_and_spacing": {
+    "grid_system": "Control Room Grid",
+    "container_padding": "p-4 to p-6",
+    "widget_gap": "gap-4",
+    "rules": [
+      "Use border-collapse style layout for data tables and logs.",
+      "Grid children must stretch to match neighbors using h-full.",
+      "Limit border-radius to 4px (rounded-sm) or 8px (rounded-md) max. The interface must look like a precise terminal.",
+      "North Star metrics (e.g., Portfolio Balance, Active PnL, IBOV index) must be in the top-left quadrant."
+    ]
+  },
+  "components": {
+    "cards": "Flat solid background with 1px border (border-white/10). No glassmorphism. No heavy drop shadows.",
+    "charts": "TradingView lightweight-charts for main price action. Must support overlays for RSI, MACD, and Bollinger Bands.",
+    "tables": "Dense rows, sticky headers, monospaced numeric columns. Use Shadcn Table component customized for compactness.",
+    "buttons": "Sharp corners, high contrast active states. Explicitly define hover states with higher contrast."
+  },
+  "interactions_and_motion": {
+    "hover_states": "Explicit text color changes and subtle background brightness shifts. Always set focus rings.",
+    "transitions": "Fast, precise micro-interactions (duration-150 ease-out). No bouncy animations."
+  },
+  "media_and_assets": {
+    "icons_library": "@phosphor-icons/react",
+    "image_urls": [
+      {
+        "slug_name": "app_logo",
+        "url": "https://static.prod-images.emergentagent.com/jobs/c730b781-3072-4249-a9f4-76ba048993ab/images/2621514318c716338dbdb5a42d64d3024f0e86469c42d51b1dafa7dfe43f6edc.png",
+        "category": "header_logo",
+        "description": "Minimalist geometric bull logo for the application header."
+      },
+      {
+        "slug_name": "empty_state_bg",
+        "url": "https://static.prod-images.emergentagent.com/jobs/c730b781-3072-4249-a9f4-76ba048993ab/images/224ce9be7e773c4d22e94672a107dbb40a8ddd2d10613700a61d2d870838120b.png",
+        "category": "empty_state",
+        "description": "Abstract dark geometric mesh background for empty trade journal or unselected states."
+      }
+    ]
+  },
+  "testing": {
+    "rules": [
+      "All interactive elements and key informational metrics MUST include a data-testid attribute.",
+      "Convention: kebab-case, role-based (e.g., data-testid=\"buy-signal-button\", data-testid=\"ibov-ticker\")."
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Initialize the React application with Tailwind CSS and Shadcn UI.",
+    "Install Google Fonts: Chivo (headings), IBM Plex Sans (body), and JetBrains Mono (data/numbers).",
+    "Apply the dark theme explicitly by overwriting tailwind CSS variables with the colors specified in these guidelines (e.g., background, card, border).",
+    "Install `@phosphor-icons/react` for technical and UI icons.",
+    "Install `lightweight-charts` (TradingView library) for the professional candlestick chart interface. Construct it to handle overlays like RSI, MACD, and Bollinger Bands.",
+    "Implement the Dashboard structure using CSS Grid ('Control Room' mode). Ensure high data density without clutter.",
+    "Build the 'Trade Journal' component to log operations, utilizing a dense Shadcn Table with monospaced financial figures.",
+    "Build the 'Entry Signals Generator' logic/UI, parsing B3 asset data to trigger indications based on multiple indicators + volume.",
+    "Ensure YFinance and Brapi APIs are integrated on the backend/frontend for near real-time B3 quotes. Implement a fallback mechanism between them.",
+    "Include a 'Daily Market Summary' section for macro trends.",
+    "Apply `data-testid` to all forms, charts, tables, asset recommendations, and buttons for automated testing."
+  ]
+}

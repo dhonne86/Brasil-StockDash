@@ -1,0 +1,41 @@
+{
+  "summary": "Backend-only test run for B3 Trading Analyst API. Created /app/backend/tests/backend_test.py with 23 pytest cases covering health, watchlist, quote (single/batch incl. ^BVSP and invalid 404), history at multiple ranges, indicators (length alignment with candles, nested macd & bollinger), signal generation (classification, confidence range, flat indicator keys), suggestions ranking, market summary, and full Trade Journal CRUD lifecycle (create -> list -> filter -> close BUY pnl=300/10%, close SELL pnl=250/7.14%, already-closed 400, stats, delete, double-delete 404). All 23 tests PASSED (100%). Verified _id never leaks from MongoDB. Brapi + yfinance fallback both functional. Total run ~46s.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "/api/signal/{symbol}", "issue": "Indicator keys in signal response are flat (bb_upper/bb_middle/bb_lower, ema9/ema21/ema50) while indicators endpoint uses nested (bollinger.upper, ema9 flat). Not a bug, but the review-request schema described nested 'bb'/'ema' — schema doc should be aligned with implementation or vice versa for consistency."},
+      {"endpoint": "/api/quotes (batch)", "issue": "Empty 'symbols' query returns 400 only because the parsing loop yields empty list; works as expected. However Brapi-renamed tickers (JBSS3->JBSS32 etc.) come back under 'actualSymbol' — frontend MUST map by requested 'symbol'. Confirmed contract works."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Optional: align signal endpoint indicator keys with /api/indicators response shape (flat vs nested) for API consistency.",
+    "Optional: consider adding pydantic validation to TradeCreate (e.g., quantity > 0, entry_price > 0) — currently negative quantities/prices are accepted."
+  ],
+  "critical_code_review_comments": [
+    "server.py uses deprecated @app.on_event('shutdown'); migrate to FastAPI lifespan context manager.",
+    "TradeCreate has no numeric validators (quantity/entry_price could be zero or negative). Add Field(gt=0).",
+    "market_service.get_quote single-call branch returns Brapi's 'symbol' (which may be the renamed actualSymbol like JBSS32), unlike batch which preserves requested symbol. Inconsistent contract between single and batch quote endpoints — could break client symbol matching.",
+    "/api/quote/{symbol} for invalid symbols can take ~10s because Brapi + yfinance fallback both attempt. Consider failing faster (lower timeout on fallback) or caching negative lookups.",
+    "list_b3_stocks in market_service.py is defined but not exposed via any API route — dead code or pending endpoint.",
+    "No request-level caching for /api/market/summary and /api/suggestions; each call refetches 20+ symbols which is slow (~15-30s) and rate-limit prone."
+  ],
+  "updated_files": [
+    "/app/backend/tests/backend_test.py (new)"
+  ],
+  "success_rate": {"backend": "100% (23/23)", "frontend": "not tested (skipped per request)"},
+  "test_credentials": "N/A - app is single-user no-auth",
+  "seed_data_creation": "Two TEST_ trades created during CRUD lifecycle test and cleaned up via DELETE in same test class.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "All 23 backend tests pass against https://brasil-stock-dash.preview.emergentagent.com. Brapi token is valid. Signal endpoint uses FLAT indicator keys (bb_upper, ema9, etc.) — do not assert nested 'bb'/'ema' objects in signal response. /api/indicators uses NESTED objects (bollinger.upper/middle/lower, macd.macd/signal/histogram). Trade close formulas verified: BUY pnl=(exit-entry)*qty, SELL pnl=(entry-exit)*qty. MongoDB _id is properly excluded from all responses.",
+  "rca of the issue": "No bugs found. One initial test failure was due to test asserting nested 'bb'/'ema' keys per review-request wording; actual backend returns flat keys — test corrected, backend behavior unchanged."
+}
