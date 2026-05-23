@@ -3,7 +3,7 @@ services:
     name: aplicacoes-para-web
     runtime: static
     buildCommand: echo "Static site ready"
-    staticPublishPath: "./aplicações para web"
+    staticPublishPath: "./aplicacoes para web"
     autoDeployTrigger: commit
     headers:
       - path: /*
